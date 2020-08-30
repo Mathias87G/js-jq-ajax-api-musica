@@ -5,7 +5,6 @@
 // In base a cosa scegliamo nella select vedremo i corrispondenti
 
 $(document).ready(function() {
-
   $.ajax(
     {
       // API
@@ -22,7 +21,7 @@ $(document).ready(function() {
           var content = data.response[i];
   				var html = template(content);
           //appendo dati clonati in html
-  			  $('.cds-container').append(html);
+          $('.cds-container').append(html);
         }
       },
       'error':function(){
@@ -30,4 +29,25 @@ $(document).ready(function() {
       }
     }
   );
+
+  // bonus select
+  $("select").change(function () {
+    var cd = $(".cd");
+    var genre = $(this).val();
+    if (genre != "All") {
+       search(cd, genre);
+      } else {
+       cd.show();
+      }
+  });
+  // funzione per ricerca classe
+  function search(x, y) {
+    x.each(function () {
+      if ($(this).hasClass(y) == 0) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+  }
 });
